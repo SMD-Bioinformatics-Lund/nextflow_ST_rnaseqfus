@@ -1,0 +1,20 @@
+process SAMTOOLS_SORT {
+
+    tag "$sampleId"
+    label 'process_medium'
+
+input:
+    tuple val(sampleId), path(bam)
+
+output: 
+    tuple val(sampleId), path("*.sorted.bam")
+
+script:
+def prefix = "${sampleId}" + ".sorted.bam"
+println (prefix)
+
+"""
+    samtools sort -@ $task.cpus -o ${prefix}.bam -T $sampleId $bam
+"""
+
+}

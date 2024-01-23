@@ -1,0 +1,11 @@
+Oct-26 16:56:22.448 [main] DEBUG nextflow.cli.Launcher - $> nextflow run main_fusion.nf --csv example.csv -profile lennart
+Oct-26 16:56:22.542 [main] INFO  nextflow.cli.CmdRun - N E X T F L O W  ~  version 21.04.2
+Oct-26 16:56:22.574 [main] DEBUG nextflow.cli.Launcher - Operation aborted
+nextflow.exception.AbortOperationException: Not a valid project name: main_fusion.nf
+	at nextflow.scm.AssetManager.resolveName(AssetManager.groovy:261)
+	at nextflow.scm.AssetManager.build(AssetManager.groovy:131)
+	at nextflow.scm.AssetManager.<init>(AssetManager.groovy:109)
+	at nextflow.cli.CmdRun.getScriptFile(CmdRun.groovy:360)
+	at nextflow.cli.CmdRun.run(CmdRun.groovy:265)
+	at nextflow.cli.Launcher.run(Launcher.groovy:475)
+	at nextflow.cli.Launcher.main(Launcher.groovy:657)
