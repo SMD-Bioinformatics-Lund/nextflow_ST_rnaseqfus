@@ -287,7 +287,7 @@ sub read_exonskip {
 		$fusion_info{breakpoint1} = $fus->{'left_break'};
 		$fusion_info{breakpoint2} = $fus->{'right_break'}; 
 		$fusion_info{spanreads} = $fus->{'supporting_reads'};
-		#$fusion_info{spanpairs} = $fus->{'supporting_reads'}; ## this needs to be fixed
+		$fusion_info{spanpairs} = 0; ## this needs to be fixed
 		$fusion_info{effect} = $fus->{'effect'};
 		$fusion_info{desc} = $fus->{'fraction_skipped_reads'};
 
