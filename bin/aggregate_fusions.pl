@@ -284,14 +284,18 @@ sub read_exonskip {
 		my $genes = noversion($gene1)."^".noversion($gene2);
 		my %fusion_info;
 
-		$fusion_info{breakpoint1} = $fus->{'left_break'};
-		$fusion_info{breakpoint2} = $fus->{'right_break'}; 
+		$fus->{left_break} =~ s/chr//;
+		$fus->{right_break} =~ s/chr//;
+
+		$fusion_info{breakpoint1} = $fus->{left_break};
+		$fusion_info{breakpoint2} = $fus->{right_break}; 
+		
 		$fusion_info{spanreads} = $fus->{'supporting_reads'};
 		$fusion_info{spanpairs} = 0; ## this needs to be fixed
 		$fusion_info{effect} = $fus->{'effect'};
 		$fusion_info{desc} = $fus->{'fraction_skipped_reads'};
 
-		$fusion_info{caller} = 'exon-skipping';
+		$fusion_info{caller} = 'exonskip';
 		
 		unless( $fusion_info{desc} =~ /banned/ ) {
 	    	push @{$agg->{$genes}}, \%fusion_info;
