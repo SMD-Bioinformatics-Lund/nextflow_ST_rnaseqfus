@@ -293,7 +293,7 @@ sub read_exonskip {
 		$fusion_info{spanreads} = $fus->{'supporting_reads'};
 		$fusion_info{spanpairs} = 0; ## this needs to be fixed
 		$fusion_info{effect} = $fus->{'effect'};
-		$fusion_info{desc} = $fus->{'fraction_skipped_reads'};
+		$fusion_info{desc} = $fus->{'confidence'};
 
 		$fusion_info{caller} = 'exonskip';
 		
