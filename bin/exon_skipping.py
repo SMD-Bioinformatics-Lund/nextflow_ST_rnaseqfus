@@ -23,7 +23,8 @@ pos_dict = {}
 for line in bed_file:
     """
     
-    This chunk of code reads the bed file and creates a twp dictionary element of the genes and their corresponding chromosome postions
+    This chunk of code reads the bed file and creates a two dictionary element of 
+    the genes and their corresponding chromosome postions
 
     """
     
@@ -54,6 +55,8 @@ for line in bed_file:
     pos_dict[key2] = gene
 
 
+##print (gene_dict)
+## print (pos_dict)
 ## Normal junctions are the ones 
 normal_junction = {}
 unnormal_junction = {}
@@ -109,7 +112,7 @@ for line in junction_file:
 print (unnormal_junction)
 
 
-result_file.write("Gene\tstart_exon\tend_exon\tsupporting_reads\treads_supporting_normal_splicing\tfraction_skipped_reads\n")
+result_file.write("Gene\tleft_break\tright_break\tstart_exon\tend_exon\tsupporting_reads\treads_supporting_normal_splicing\tfraction_skipped_reads\teffect\n")
 
 for unnormal_key in unnormal_junction:
     gene = pos_dict[unnormal_key]
@@ -128,21 +131,34 @@ for unnormal_key in unnormal_junction:
     end_exon = ""
     start_exon_name = ""
     end_exon_name = ""
+
     if i_start != 100:
         start_exon = str(i_start)
         start_exon_name = str(unnormal_junction[unnormal_key][4])
+        print (normal_junction[unnormal_key])
+        start_exon_position = int(unnormal_key.split("_")[1])-1
+        print (start_exon_position)
     else:
         start_exon = unnormal_key
+        start_exon_position = int(unnormal_key.split("_")[1])-1
+    
     if i_end != 100:
         end_exon = str(i_end)
         end_exon_name = str(unnormal_junction[unnormal_key][5])
+        end_exon_position = int(unnormal_junction[unnormal_key][3].split("_")[1])+1
+
+        print (end_exon_position)
     else:
         continue
+
     fraction_skipped_reads = nr_unnormal_reads / float(nr_unnormal_reads + nr_normal_reads)
+    left_break = unnormal_key.split("_")[0]+":"+str(start_exon_position)
+    right_break = unnormal_key.split("_")[0]+":"+str(end_exon_position)
+
     if fraction_skipped_reads > 0.1 and nr_unnormal_reads > 100 and end_exon_name not in FP_exon:
         result_file.write(
-            gene + "\t" + start_exon_name + "\t" + end_exon_name + "\t" + str(nr_unnormal_reads) +
-            "\t" + str(nr_normal_reads) + "\t" + str(fraction_skipped_reads) + "\n"
+            gene + "\t" + left_break + "\t" + right_break +"\t" + start_exon_name + "\t" + end_exon_name + "\t" + str(nr_unnormal_reads) +
+            "\t" + str(nr_normal_reads) + "\t" + str(fraction_skipped_reads) + "\t" + "exon skipping"+ "\n"
         )
 
 

@@ -284,8 +284,8 @@ sub read_exonskip {
 		my $genes = noversion($gene1)."^".noversion($gene2);
 		my %fusion_info;
 
-		$fusion_info{breakpoint1} = $fus->{'breakpoint1'};
-		$fusion_info{breakpoint2} = $fus->{'breakpoint2'}; 
+		$fusion_info{breakpoint1} = $fus->{'left_break'};
+		$fusion_info{breakpoint2} = $fus->{'right_break'}; 
 		$fusion_info{spanreads} = $fus->{'supporting_reads'};
 		#$fusion_info{spanpairs} = $fus->{'supporting_reads'}; ## this needs to be fixed
 		$fusion_info{effect} = $fus->{'effect'};
