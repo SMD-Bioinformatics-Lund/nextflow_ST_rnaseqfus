@@ -152,13 +152,16 @@ for unnormal_key in unnormal_junction:
         continue
 
     fraction_skipped_reads = nr_unnormal_reads / float(nr_unnormal_reads + nr_normal_reads)
+    gene_left_exon = str(gene) + "_" + "exon" + "_" + str(start_exon_name.split("_")[-1])
+    gene_right_exon = str(gene) + "_" + "exon" + "_" + str(end_exon_name.split("_")[-1])
+
     left_break = unnormal_key.split("_")[0]+":"+str(start_exon_position)
     right_break = unnormal_key.split("_")[0]+":"+str(end_exon_position)
     confidence = 'high' if fraction_skipped_reads >= 0.80 else 'medium' if fraction_skipped_reads >= 0.30 else 'low'
 
     if fraction_skipped_reads > 0.1 and nr_unnormal_reads > 100 and end_exon_name not in FP_exon:
         result_file.write(
-            gene + "\t" + left_break + "\t" + right_break +"\t" + start_exon_name + "\t" + end_exon_name + "\t" + str(nr_unnormal_reads) + "\t" + str(nr_normal_reads) + "\t" + str(fraction_skipped_reads) + "\t" + str(confidence) + "\t" +"in-frame"+ "\n"
+            gene + "\t" + left_break + "\t" + right_break +"\t" + gene_left_exon + "\t" + gene_right_exon + "\t" + str(nr_unnormal_reads) + "\t" + str(nr_normal_reads) + "\t" + str(fraction_skipped_reads) + "\t" + str(confidence) + "\t" +"in-frame"+ "\n"
         )
 
 
