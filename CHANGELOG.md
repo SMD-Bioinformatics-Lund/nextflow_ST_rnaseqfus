@@ -12,6 +12,6 @@
 - Can support the visualization, reporting of the solid tumor pipelines
 
 ### 2023-08-15
-# Made a new repo for solid tumor specific pipeline from rnaseq-fusion pipeline
-# Idea was to make to update the rnafusion production pipeline and support gene panel analysis
+- Made a new repo for solid tumor specific pipeline from rnaseq-fusion pipeline
+- Idea was to make to update the rnafusion production pipeline and support gene panel analysis
 
