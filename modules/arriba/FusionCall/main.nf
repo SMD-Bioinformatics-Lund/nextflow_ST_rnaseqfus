@@ -11,8 +11,9 @@ process ARRIBA_FUSCALL {
         path protein_domains
     
     output:
-        tuple val(sampleId), path("*.fusions.tsv") 
-        tuple val(sampleId), path("*.fusions.discarded.tsv")
+        tuple val(sampleId), path("*.fusions.tsv"), emit: fusions
+        tuple val(sampleId), path("*.fusions.discarded.tsv"), emit: discarded_fusions
+        path "versions.yml", emit: versions
         
     script:
     def prefix = "${sampleId}" + "."
@@ -26,6 +27,23 @@ process ARRIBA_FUSCALL {
         -O ${prefix}fusions.discarded.tsv \\
         -b $blacklist \\
         -k $known_fusions  \\
-        -p $protein_domains 
+        -p $protein_domains
+    
+    cat <<-END_VERSIONS > versions.yml
+    "${task.process}":
+        arriba: \$(echo \$(arriba 2>&1) | sed 's/.*Version: //; s/ .*//')
+    END_VERSIONS
+    """
+    
+    // Stub section for simplified testing
+    stub:
+    """
+    touch ${sampleId}.fusions.tsv
+    touch ${sampleId}.fusions.discarded.tsv
+
+    cat <<-END_VERSIONS > versions.yml
+    "${task.process}":
+        arriba: \$(echo \$(arriba 2>&1) | sed 's/.*Version: //; s/ .*//')
+    END_VERSIONS   
     """
 }

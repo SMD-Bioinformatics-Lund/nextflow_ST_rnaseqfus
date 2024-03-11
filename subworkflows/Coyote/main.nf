@@ -13,5 +13,8 @@ workflow coyoteWorkflow {
 
     main:
         COYOTE (allFusCalls, metaCoyote, cronDir)
+
+    emit:
+        coyote = COYOTE.out.coyote_output
         
 }

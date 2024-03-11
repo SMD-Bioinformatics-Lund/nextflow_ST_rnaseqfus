@@ -22,18 +22,23 @@ csv                     :       $params.csv
 """
 
 /*
-Include the subworkflow
+Include the subworkflows
 */
-include { subSampleWorkflow } from './subworkflow/SubSample/main.nf'
-include { arribaWorkflow } from './subworkflow/FusCall/arriba/main.nf'
-include { starFusionWorkflow } from './subworkflow/FusCall/starFusion/main.nf'
-include { metEgfrWorkflow } from './subworkflow/MetEgfr/main.nf'
-include { ighDux4Workflow } from './subworkflow/IghDUx4/main.nf'
-include { fusionCatcherWorkflow } from './subworkflow/FusCall/fusionCatcher/main.nf'
-include { aggFusionWorkflow } from './subworkflow/FusCall/aggregate/main.nf'
-include { coyoteWorkflow } from './subworkflow/Coyote/main.nf'
-include { qcWorkflow } from './subworkflow/AlignQC/main.nf'
-include { cdmWorkflow } from './subworkflow/CMD/main.nf'
+
+
+
+
+include { subSampleWorkflow } from './subworkflows/SubSample/main.nf'
+include { arribaWorkflow } from './subworkflows/FusCall/arriba/main.nf'
+include { starFusionWorkflow } from './subworkflows/FusCall/starFusion/main.nf'
+include { metEgfrWorkflow } from './subworkflows/MetEgfr/main.nf'
+include { ighDux4Workflow } from './subworkflows/IghDUx4/main.nf'
+include { fusionCatcherWorkflow } from './subworkflows/FusCall/fusionCatcher/main.nf'
+include { aggFusionWorkflow } from './subworkflows/FusCall/aggregate/main.nf'
+include { coyoteWorkflow } from './subworkflows/Coyote/main.nf'
+include { qcWorkflow } from './subworkflows/AlignQC/main.nf'
+include { cdmWorkflow } from './subworkflows/CMD/main.nf'
+include { CUSTOM_DUMPSOFTWAREVERSIONS   } from './modules/custom/dumpsoftwareversions//main.nf'  
 
 /*
 Create data flow channels

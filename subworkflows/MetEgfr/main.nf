@@ -10,8 +10,11 @@ workflow metEgfrWorkflow {
         starMetrices
 
     main:
+        ch_versions = Channel.empty()
         MET_EGFR ( bedFile, starMetrices )
+        ch_versions = ch_versions.mix(MET_EGFR.out.versions)
 
     emit:
-        fusion = MET_EGFR.out
+        fusion = MET_EGFR.out.result
+        versions = ch_versions
 }
