@@ -13,7 +13,7 @@ process COYOTE {
 	script:
 		def id = "${sampleId}-fusions"
 		def group = 'solidRNA_GMSv5'
-		def finaloutdir = '${outdir}/solid_ST_RNA/finalResults/'
+		def finaloutdir = "${outdir}/solid_ST_RNA/finalResults/"
 
 
         // Actual script
