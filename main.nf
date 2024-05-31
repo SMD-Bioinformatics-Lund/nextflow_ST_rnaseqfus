@@ -27,6 +27,7 @@ include { starFusionWorkflow } from './subworkflows/FusCall/starFusion/main.nf'
 include { arribaWorkflow } from './subworkflows/FusCall/arriba/main.nf'
 include { metEgfrWorkflow } from './subworkflows/MetEgfr/main.nf'
 include { aggFusionWorkflow } from './subworkflows/Aggregate/main.nf'
+include { filterFusionWorkflow } from './subworkflows/Filter/main.nf'
 include { qcWorkflow } from './subworkflows/AlignQC/main.nf'
 include { cdmWorkflow } from './subworkflows/CDM/main.nf'
 include { coyoteWorkflow } from './subworkflows/Coyote/main.nf'
@@ -74,6 +75,7 @@ refBed = params.ref_bed
 refBedXY =  params.ref_bedXY
 
 metEgfrBed = params.metEgfr
+stGenePanel = params.stgenePanel_file
 
  workflow {
     ch_versions = Channel.empty()
@@ -96,8 +98,12 @@ metEgfrBed = params.metEgfr
     aggFusionWorkflow ( ch_fusioncatcher.fusion,   
                         ch_arriba.fusion,
                         ch_starfusion.fusion,
-                        ch_metEgfr.fusion).set {ch_fusionsAll}
+                        ch_metEgfr.fusion).set {    ch_fusionsAll }
     ch_versions = ch_versions.mix(ch_fusionsAll.versions)
+
+    filterFusionWorkflow (  ch_fusionsAll.aggregate, 
+                            stGenePanel ).set { ch_fusionsFinal }
+    ch_versions = ch_versions.mix(ch_fusionsFinal.versions)
 
     qcWorkflow ( ch_arriba.bam, 
                  bedRefRseqc,
@@ -110,7 +116,8 @@ metEgfrBed = params.metEgfr
     ch_cdm_input = ch_cdm.join(ch_qc.QC)
     cdmWorkflow (ch_cdm_input, ch_outdir)
 
-    coyoteWorkflow (    ch_fusionsAll.aggregate,
+    coyoteWorkflow (    ch_fusionsFinal.filtered,
+                        ch_qc.QC,
                         metaCoyote,
                         ch_outdir )
     

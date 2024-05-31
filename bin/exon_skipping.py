@@ -161,7 +161,7 @@ for unnormal_key in unnormal_junction:
 
     if fraction_skipped_reads > 0.1 and nr_unnormal_reads > 100 and end_exon_name not in FP_exon:
         result_file.write(
-            gene + "\t" + left_break + "\t" + right_break +"\t" + gene_left_exon + "\t" + gene_right_exon + "\t" + str(nr_unnormal_reads) + "\t" + str(nr_normal_reads) + "\t" + str(fraction_skipped_reads) + "\t" + str(confidence) + "\t" +"in-frame"+ "\n"
+            gene + "\t" + left_break + "\t" + right_break +"\t" + gene_left_exon + "\t" + gene_right_exon + "\t" + str(nr_unnormal_reads) + "\t" + str(nr_normal_reads) + "\t" + str(fraction_skipped_reads) + "\t" + str(confidence)+","+"mitelman" + "\t" +"in-frame"+ "\n"
         )
 
 

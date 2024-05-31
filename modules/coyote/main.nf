@@ -4,6 +4,7 @@ process COYOTE {
 
 	input:
 		tuple val(sampleId), path(agg_vcf)
+        tuple val(sampleId2), path(qc_val)
         tuple val(sample), val(clarityId), val(poolId)
         val(outdir)
 
@@ -20,6 +21,7 @@ process COYOTE {
         """
         echo "import_fusion_to_coyote.pl \\
             --fusions ${finaloutdir}${agg_vcf} \\
+            --qc ${finaloutdir}${qc_val} \\
             --id ${id} \\
             --group ${group} \\
             --clarity-sample-id ${clarityId} \\

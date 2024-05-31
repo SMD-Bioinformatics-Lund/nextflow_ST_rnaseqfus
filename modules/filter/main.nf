@@ -7,13 +7,13 @@ process FILTER_FUSION {
         path geneList
     
     output:
-        tuple val(sample), path("${sample}.agg.filtered.vcf"), emit: filterfusion
+        tuple val(sample), path("${sample}.agg.filtered.vcf"), emit: filteredfusion
         path "versions.yml", emit: versions  // Emit version information in YAML format
     
     script:
     // Actual script
     """
-    filter_ST_genes.py --input  ${aggregatefusion} --genes ${geneList} --out ${sample}.agg.filtered.vcf"
+    filter_ST_genes.py --input  ${aggregatefusion} --genes ${geneList} --out ${sample}.agg.filtered.vcf
         
     cat <<-END_VERSIONS > versions.yml
     "${task.process}":
