@@ -8,10 +8,14 @@ include { COYOTE } from '../../modules/coyote/main.nf'
 workflow coyoteWorkflow {
     take:
         allFusCalls
+        qcData
         metaCoyote
         cronDir
 
     main:
-        COYOTE (allFusCalls, metaCoyote, cronDir)
+        COYOTE (allFusCalls, qcData, metaCoyote, cronDir)
+
+    emit:
+        coyote = COYOTE.out.coyote_output
         
 }

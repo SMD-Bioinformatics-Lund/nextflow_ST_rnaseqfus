@@ -7,15 +7,24 @@ process CDM_REGISTER {
         val (output)
     
     output:
-        file("${sample}.cdm")
+        tuple val(sample), file("${sample}.cdm"), emit: cdm_done
         
     script:
         parts = r1.toString().split('/')
         parts.println()
-        idx = parts.findIndexOf {it ==~ /......_......_...._........../}
+        idx = parts.findIndexOf { it ==~ /......_......_...._........../ }
         rundir = parts[0..idx].join("/")
 
         """
-        echo "--run-folder ${rundir} --sample-id ${sample} --assay rnaseq-fusion --qc ${output}/rnaseq_fusion/finalResults/${qc}" > ${sample}.cdm
+        echo "--run-folder ${rundir} --sample-id ${sample} --assay solidRNA_GMSv5 --qc ${output}/solid_ST_RNA/finalResults/${qc}" > ${sample}.cdm
         """
+    	
+    stub:
+    	parts = r1.toString().split('/')
+    	idx = parts.findIndexOf { it ==~ /......_......_...._........../ }
+    	rundir = parts[0..idx].join("/")
+    	"""
+	    echo "--run-folder ${rundir} --sample-id ${sample} --assay solidRNA_GMSv5 --qc ${output}/solid_ST_RNA/finalResults/${qc}" > ${sample}.cdm
+	    """
+       
 }

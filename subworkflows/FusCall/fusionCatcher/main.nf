@@ -11,8 +11,11 @@ workflow fusionCatcherWorkflow {
         
     main:
         // def input = readNumber.combine(sampleInfo)
+        ch_versions = Channel.empty()
         FUSIONCATCHER (referenceFusionCatcher, fileInfo)
+        ch_versions = ch_versions.mix(FUSIONCATCHER.out.versions)
 
     emit:
-        fusion = FUSIONCATCHER.out
+        fusion = FUSIONCATCHER.out.results
+        versions = ch_versions
 }
