@@ -24,7 +24,7 @@ process COYOTE {
             --qc ${finaloutdir}${qc_val} \\
             --id ${id} \\
             --group ${assay} \\
-            --subpanel  ${diagnosis} \\
+            --subpanel  ${group} \\
             --clarity-sample-id ${clarityId} \\
             --clarity-pool-id ${poolId}" > ${id}.coyote
         """
