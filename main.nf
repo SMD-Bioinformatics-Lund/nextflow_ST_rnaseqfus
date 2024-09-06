@@ -42,7 +42,7 @@ Channel
 Channel
 	.fromPath(params.csv)
 	.splitCsv(header:true)
-	.map{row -> tuple(row.id,row.clarity_sample_id, row.clarity_pool_id)}
+	.map{row -> tuple(row.id,row.clarity_sample_id, row.clarity_pool_id, row.assay, row.diagnosis )}
     .set { metaCoyote }
 
 Channel
