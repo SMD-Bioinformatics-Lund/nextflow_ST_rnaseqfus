@@ -19,6 +19,7 @@ process QCEXTRACT {
         -s ${starfinal} \\
         -i ${sample}  \\
         -g ${geneBodyCoverage} \\
+        -p ${genotypes} \\
         -l ${tsv} > ${sample}.STAR.rnaseq_QC
 
     cat <<-END_VERSIONS > versions.yml
