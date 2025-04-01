@@ -23,7 +23,8 @@ process CDM_REGISTER {
     	parts = r1.toString().split('/')
     	idx = parts.findIndexOf { it ==~ /......_......_...._........../ }
     	rundir = parts[0..idx].join("/")
-    	echo "--run-folder ${rundir} --sample-id ${sample} --assay solidRNA_GMSv5 --qc ${output}/rnaseq_fusion/finalResults/${qc}" > ${sample}.cdm
-
+    	"""
+	echo "--run-folder ${rundir} --sample-id ${sample} --assay solidRNA_GMSv5 --qc ${output}/rnaseq_fusion/finalResults/${qc}" > ${sample}.cdm
+	"""
        
 }

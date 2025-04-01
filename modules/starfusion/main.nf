@@ -15,7 +15,7 @@ process STARFUSION_FUSCALL {
 
     // Actual script
     """
-    STAR-Fusion --genome_lib_dir ${star_fusion_ref} ${option} --min_FFPM 0.01 --CPU ${task.cpus} --FusionInspector validate --verbose_level 2 --output_dir .
+    STAR-Fusion --genome_lib_dir ${star_fusion_ref} ${option} --CPU ${task.cpus} --FusionInspector validate --verbose_level 2 --output_dir .
 
     mv  star-fusion.fusion_predictions.tsv ${sampleId}.star-fusion.fusion_predictions.tsv
 

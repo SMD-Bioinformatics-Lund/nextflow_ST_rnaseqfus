@@ -8,26 +8,20 @@ process STARFUSION_FUSCALL {
     
     output:
         tuple val(sampleId), path("*.star-fusion.fusion_predictions.tsv"), emit: results
-        path "starfusion_version.yml", emit: versions  // Emit version information in YAML format
+        path "versions.yml", emit: versions // Emit version information in YAML format
         
     script:
     def option = "--left_fq ${read1} --right_fq ${read2}"
 
     // Actual script
     """
-    STAR-Fusion \\
-		--genome_lib_dir ${star_fusion_ref} \\
-		${option} \\
-        --min_FFPM 0.01 \\
-		--CPU ${task.cpus} \\
-		--output_dir . \\
-		--FusionInspector validate \\
-		--verbose_level 2  
-	mv  star-fusion.fusion_predictions.tsv ${sampleId}.star-fusion.fusion_predictions.tsv
-    
+    STAR-Fusion --genome_lib_dir ${star_fusion_ref} ${option} --min_FFPM 0.01 --CPU ${task.cpus} --FusionInspector validate --verbose_level 2 --output_dir .
+
+    mv  star-fusion.fusion_predictions.tsv ${sampleId}.star-fusion.fusion_predictions.tsv
+
     cat <<-END_VERSIONS > versions.yml
     "${task.process}":
-        starfusion: \$(STAR-Fusion --version 2>&1 | sed -e "s/STAR-Fusion //g")
+        STAR-Fusion: \$(STAR-Fusion --version 2>&1 | grep -i 'version' | sed 's/STAR-Fusion version: //')
     END_VERSIONS
     """
     
@@ -38,7 +32,7 @@ process STARFUSION_FUSCALL {
     
     cat <<-END_VERSIONS > versions.yml
     "${task.process}":
-        starfusion: \$(STAR-Fusion --version 2>&1 | sed -e "s/STAR-Fusion //g")
+        STAR-Fusion: \$(STAR-Fusion --version 2>&1 | grep -i 'version' | sed 's/STAR-Fusion version: //')
     END_VERSIONS
     """
 }
