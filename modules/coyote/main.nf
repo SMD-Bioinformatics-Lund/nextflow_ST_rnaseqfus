@@ -13,7 +13,7 @@ process COYOTE {
 	
 	script:
 		def id = "${sampleId}-fusions"
-		def finaloutdir = "${params.outdir}/${params.coyote_group}/finalResults/"
+		def finaloutdir = "${params.outdir}/${params.assay}/finalResults/"
 
 
         // Actual script

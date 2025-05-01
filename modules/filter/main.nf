@@ -25,6 +25,7 @@ process FILTER_FUSION {
     stub:
     """
     touch ${sample}.agg.filtered.vcf
+    echo ${geneList}
     
     cat <<-END_VERSIONS > versions.yml
     "${task.process}":
