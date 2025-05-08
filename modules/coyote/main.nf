@@ -13,7 +13,7 @@ process COYOTE {
 	
 	script:
 		def id = "${sampleId}-fusions"
-		def finaloutdir = "${params.outdir}/${params.assay}/finalResults/"
+		def finaloutdir = "${params.outdir}/${params.subdir}/finalResults/"
 
 
         // Actual script
@@ -31,7 +31,7 @@ process COYOTE {
         stub:
     	
         def id = "${sampleId}-fusions"
-		def finaloutdir = "${params.outdir}/${params.coyote_group}/finalResults/"
+		def finaloutdir = "${params.outdir}/${params.subdir}/finalResults/"
 
         """
         echo "import_fusion_to_coyote.pl \\
