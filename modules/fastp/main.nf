@@ -17,7 +17,7 @@ process FASTP_UMI {
 
     script:
     """
-    fastp -i ${r1} -I ${r2} --stdout -U --umi_loc=per_read --umi_len=3 -w ${task.cpus} | \\
+    fastp -i ${r1} -I ${r2} --stdout -U --umi_loc=per_read --umi_len=5 -w ${task.cpus} | \\
     fastp --stdin --interleaved_in -f 2 -F 2 \\
         -o ${sampleId}.trimmed.R1.fq.gz -O ${sampleId}.trimmed.R2.fq.gz \\
         -j ${sampleId}.fastp.json -h ${sampleId}.fastp.html -w ${task.cpus} --detect_adapter_for_pe -l 30
