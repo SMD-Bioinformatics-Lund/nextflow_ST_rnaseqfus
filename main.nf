@@ -105,7 +105,7 @@ stGenePanel = params.stgenePanel_file
                             stGenePanel ).set { ch_fusionsFinal }
     ch_versions = ch_versions.mix(ch_fusionsFinal.versions)
 
-    qcWorkflow ( ch_arriba.bam, 
+    qcWorkflow ( ch_subsample.subSample, 
                  bedRefRseqc,
                  hg38,
                  refBed,

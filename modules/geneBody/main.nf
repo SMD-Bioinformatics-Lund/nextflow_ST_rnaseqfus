@@ -14,6 +14,7 @@ process GENEBODY {
     script:
     // Actual script
     """
+    cp ${bai} ${bam}.bai
     bam2wig.py -s ${hg_sizes} -i ${bam} -o ${sample} -u
     geneBody_coverage2.py -i ${sample}.bw -r ${ref_rseqc_bed} -o ${sample}
 
