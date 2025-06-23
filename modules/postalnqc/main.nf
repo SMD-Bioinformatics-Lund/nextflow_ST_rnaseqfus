@@ -57,7 +57,7 @@ process QCEXTRACT_GMSv5 {
     script:
     // Actual script
     """
-     postaln_qc_rdna.r \\
+    postaln_qc_rd_rna.r \\
         -s ${starfinal} \\
         -i ${sample}  \\
         -g ${geneBodyCoverage} \\

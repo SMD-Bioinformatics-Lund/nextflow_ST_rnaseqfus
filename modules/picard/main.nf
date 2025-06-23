@@ -41,7 +41,7 @@ process ADD_READ_GROUPS {
 
 process MARK_DUPLICATES {
     tag "$sample_id"
-    label "process_low"
+    label "process_high"
 
     input:
     tuple val(sample_id), path(bam), path(bai)
@@ -52,7 +52,7 @@ process MARK_DUPLICATES {
 
     script:
     """
-    java -Xmx20g -jar /usr/picard/picard.jar MarkDuplicates \
+    java -Xmx90g -jar /usr/picard/picard.jar MarkDuplicates \
         I=$bam \
         O=${sample_id}.dedup.bam \
         M=${sample_id}_dedup_metrics.txt \
