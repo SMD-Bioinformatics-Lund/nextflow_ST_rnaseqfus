@@ -6,12 +6,13 @@ include { ADD_READ_GROUPS               } from '../../modules/picard/main.nf'
 include { MARK_DUPLICATES               } from '../../modules/picard/main.nf'
 include { COLLECT_INSERT_SIZE_METRICS   } from '../../modules/picard/main.nf'
 include { COLLECT_RNA_SEQ_METRICS       } from '../../modules/picard/main.nf'
-include { COLLECT_HSMETRICS             } from '../../modules/picard/main.nf'    
+include { COLLECT_HSMETRICS             } from '../../modules/picard/main.nf'   
+include { INNER_DISTANCE                } from '../../modules/picard/main.nf' 
 include { GENEBODY                      } from '../../modules/geneBody/main.nf'
 include { PROVIDER                      } from '../../modules/provider/main.nf'
 include { DEEPTOOLS                     } from '../../modules/deeptools/main.nf'
-include { QCEXTRACT_GMSv5               } from  '../../modules/postalnqc/main.nf'
-include { QCEXTRACT                     } from  '../../modules/postalnqc/main.nf'
+include { QCEXTRACT_GMSV5               } from '../../modules/postalnqc/main.nf'
+include { QCEXTRACT                     } from '../../modules/postalnqc/main.nf'
 
 workflow qcWorkflow {
     take:
@@ -38,6 +39,9 @@ workflow qcWorkflow {
         COLLECT_INSERT_SIZE_METRICS (MARK_DUPLICATES.out.markedBam)
         ch_versions = ch_versions.mix(COLLECT_INSERT_SIZE_METRICS.out.versions)
 
+        INNER_DISTANCE (MARK_DUPLICATES.out.markedBam)
+        ch_versions = ch_versions.mix(INNER_DISTANCE.out.versions)
+
         COLLECT_RNA_SEQ_METRICS (MARK_DUPLICATES.out.markedBam)
         ch_versions = ch_versions.mix(COLLECT_RNA_SEQ_METRICS.out.versions) 
 
@@ -54,7 +58,7 @@ workflow qcWorkflow {
         ch_versions = ch_versions.mix(DEEPTOOLS.out.versions)
 
         if ( params.cdm == "solidRNA_GMSv5") {
-            QCEXTRACT_GMSv5 ( starmetrices,
+            QCEXTRACT_GMSV5 ( starmetrices,
                               PROVIDER.out.genotypes,
                               GENEBODY.out.gene_body_coverage, 
                               DEEPTOOLS.out.fragment_size)
@@ -64,7 +68,7 @@ workflow qcWorkflow {
             QCEXTRACT ( starmetrices,
                     PROVIDER.out.genotypes,
                     GENEBODY.out.gene_body_coverage, 
-                    COLLECT_INSERT_SIZE_METRICS.out.insertStats)
+                    INNER_DISTANCE.out.insertStatsRseqc)
             ch_versions = ch_versions.mix(QCEXTRACT.out.versions) 
             
         }

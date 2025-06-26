@@ -127,7 +127,8 @@ if (file.exists(provider)){
 
 if (file.exists(flendist)){  
     flendist_dat <- read.csv(flendist,sep="\t",header=T, na.strings = "", fill = TRUE)
-    qc.data.l[["flendist"]]<- flendist_dat$MEDIAN_INSERT_SIZE
+    tmp <- round(300 + flendist_dat$Mean, digits = 2)
+    qc.data.l[["flendist"]]<- tmp
 }
 
 ### Print

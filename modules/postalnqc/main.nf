@@ -40,7 +40,7 @@ process QCEXTRACT {
 }
 
 
-process QCEXTRACT_GMSv5 {
+process QCEXTRACT_GMSV5 {
     tag "$sample"
     label "process_low"
 

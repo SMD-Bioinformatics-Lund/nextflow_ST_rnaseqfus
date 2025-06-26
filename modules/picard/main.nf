@@ -160,7 +160,7 @@ process COLLECT_RNA_SEQ_METRICS {
 
 process COLLECT_HSMETRICS {
     tag "$sample_id"
-    label "process_low"
+    label "process_medium"
 
     input:
         tuple val(sample_id), path(bam), path(bai)
@@ -195,3 +195,41 @@ process COLLECT_HSMETRICS {
     END_VERSIONS
     """
 }
+
+
+process INNER_DISTANCE {
+    tag "$sample_id"
+    label "process_medium"
+
+    input:
+    tuple val(sample_id), path(bam), path(bai)
+
+    output:
+    tuple val(sample_id), path("${sample_id}.inner_distance_metrics.tsv"), emit:insertStatsRseqc
+    path "versions.yml", emit: versions
+
+    script:
+    """
+    inner_distance.py \
+        -i $bam \
+        -o ${sample_id} \
+        -r ${params.panel_bed} > output.txt
+    
+    head -n 2 output.txt > ${sample_id}.inner_distance_metrics.tsv
+    
+    cat <<-END_VERSIONS > versions.yml
+    "${task.process}":
+        RSeqQC inner_distance.py: \$(inner_distance.py --version| sed 's/inner_distance.py //')
+    END_VERSIONS
+    """
+    stub:
+    """
+    touch ${sample_id}.inner_distance_metrics.tsv
+
+    cat <<-END_VERSIONS > versions.yml
+    "${task.process}":
+        RSeqQC inner_distance.py: \$(inner_distance.py --version| sed 's/inner_distance.py //')
+    END_VERSIONS
+    """
+}
+    
