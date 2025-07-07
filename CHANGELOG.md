@@ -11,7 +11,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Added the results and QC format similar to the other rna assays
 
 ### 2025-03-20
-### Synced current master with the production branch
+#### Synced current master with the production branch
 
 ### 2024-06-11
 #### Added v1.1
