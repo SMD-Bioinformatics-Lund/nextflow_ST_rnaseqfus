@@ -5,7 +5,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ### 2025-07-07
-#### Added v1.2
+#### Added v1.2.0
 - Added a new analysis profile called twistrna fusion and seperated from GMS-ST-rnafusion
 - Added a improved QC (fragmentlength) for twistrnafusion
 - Added the results and QC format similar to the other rna assays
@@ -14,7 +14,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 #### Synced current master with the production branch
 
 ### 2024-06-11
-#### Added v1.1
+#### Added v1.1.0
 - filters the unwanted fusion events based on the gene panel from solid panel
 - now supports exon skipping annotations from mitelman
 - supports qc values in the coyote presentation
