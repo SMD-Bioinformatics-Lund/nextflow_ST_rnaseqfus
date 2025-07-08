@@ -62,7 +62,7 @@ workflow qcWorkflow {
                               PROVIDER.out.genotypes,
                               GENEBODY.out.gene_body_coverage, 
                               DEEPTOOLS.out.fragment_size)
-            ch_versions = ch_versions.mix(QCEXTRACT_GMSv5.out.versions) 
+            ch_versions = ch_versions.mix(QCEXTRACT_GMSV5.out.versions) 
                 
         } else {
             QCEXTRACT ( starmetrices,
@@ -73,6 +73,6 @@ workflow qcWorkflow {
             
         }
     emit:
-        QC = (params.cdm == 'solidRNA_GMSv5') ? QCEXTRACT_GMSv5.out.rnaseq_qc : QCEXTRACT.out.rnaseq_qc
+        QC = (params.cdm == 'solidRNA_GMSv5') ? QCEXTRACT_GMSV5.out.rnaseq_qc : QCEXTRACT.out.rnaseq_qc
         versions = ch_versions
 }
