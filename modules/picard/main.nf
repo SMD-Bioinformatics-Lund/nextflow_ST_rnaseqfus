@@ -181,8 +181,8 @@ process COLLECT_HSMETRICS {
         ${sample_id}_hs_metrics.txt
 
     cat <<-END_VERSIONS > versions.yml
-        "${task.process}":
-            sentieon: \$(echo \$(sentieon driver --version 2>&1) | sed -e "s/sentieon-genomics-//g")
+    "${task.process}":
+        sentieon: \$(echo \$(sentieon driver --version 2>&1) | sed -e "s/sentieon-genomics-//g")
     END_VERSIONS
     """
     stub:
