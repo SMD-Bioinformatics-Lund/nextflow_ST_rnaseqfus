@@ -1,0 +1,1 @@
+scp -r  subworkflows/ modules/ main.nf nextflow.config configs/ bin/ container/  rs-fs1.lunarc.lu.se:/fs1/saile/prj/pipeline_test/test_ST_RNA/
